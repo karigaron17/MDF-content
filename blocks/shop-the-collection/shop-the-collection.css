@@ -1,0 +1,220 @@
+.section.shop-the-collection-container {
+    text-align: center;
+    padding: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section.shop-the-collection-container>div {
+    max-width: 100%;
+}
+
+/*heading*/
+.section.shop-the-collection-container h2 {
+    font-family: var(--ff-gilroy-bold);
+    margin: 0 0 2rem;
+    line-height: 1;
+    font-size: 4.9vw;
+    letter-spacing: .3em;
+}
+
+@media (min-width: 600px) {
+    .section.shop-the-collection-container h2 {
+        font-size: 3rem;
+        margin: 0 0 4rem;
+    }
+}
+
+/*carousel*/
+.shop-the-collection {
+    position: relative;
+}
+
+.shop-the-collection>div {
+    display: flex;
+    left: -100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    transform: translateX(100%);
+}
+
+@media (min-width: 600px) {
+    .shop-the-collection>div {
+        gap: 0 1rem;
+        left: 0;
+        transform: translateX(0);
+    }
+}
+
+@media (min-width: 1024px) {
+    .shop-the-collection>div {
+        gap: 0 4rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .shop-the-collection>div {
+        gap: 0 8.4rem;
+    }
+}
+
+.shop-the-collection>div.is-reversing {
+    transform: translateX(-100%);
+}
+
+@media (min-width: 600px) {
+    .carousel.is-reversing {
+        transform: translateX(0);
+    }
+}
+
+.shop-the-collection>div.is-set {
+    transform: none;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* slides */
+.shop-the-collection>div>div {
+    flex: 1 0 100%;
+    order: 2;
+    padding: 0 2.8rem;
+    box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+    .shop-the-collection>div>div {
+        flex: 1 1 33.33%;
+        order: 1 !important;
+        padding: 0;
+        box-sizing: border-box;
+    }
+}
+
+@media (min-width: 600px) {
+    .shop-the-collection>div>div.is-ref {
+        order: 1 !important;
+    }
+}
+
+.shop-the-collection>div>div img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/*slide copy*/
+.shop-the-collection>div>div>p:nth-child(n+2) {
+    
+    margin: 0;
+}
+
+.shop-the-collection>div>div p:last-of-type {
+    font-family: var(--ff-zahrah-bold-italic);
+    letter-spacing: .02em;
+    font-size: 2.4rem;
+}
+
+@media (min-width: 600px) {
+    .shop-the-collection>div>div p:last-of-type {
+        font-size: 2rem;
+        padding: 0 1rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .shop-the-collection>div>div p:last-of-type {
+        font-size: 2.6rem;
+        padding: 0;
+    }
+}
+
+.shop-the-collection>div>div a {
+    font-family: var(--ff-gilroy-bold);
+    font-weight: 900;
+    text-decoration: underline;
+    font-size: 5.6vw;
+    letter-spacing: .28em;
+    line-height: 1.4;
+}
+
+@media (min-width: 600px) {
+    .shop-the-collection>div>div a {
+        font-size: 1.8rem;
+    }
+
+}
+
+@media (min-width: 1024px) {
+    .shop-the-collection>div>div a {
+        font-size: 2.4rem;
+    }
+
+}
+
+.shop-the-collection>div>div a+sup {
+    font-size: 4vw;
+    line-height: 1;
+}
+
+@media (min-width: 600px) {
+    .shop-the-collection>div>div a+sup {
+        font-size: 1.6rem;
+    }
+}
+
+/*controls*/
+.shop-the-collection-container button {
+    background: transparent;
+    height: 4.4rem;
+    width: 4.4rem;
+    display: flex;
+    align-items: center;
+    border-radius: .5rem;
+    padding: 0;
+    position: absolute;
+    top: 36%;
+}
+
+@media (min-width: 600px) {
+    .shop-the-collection-container button {
+        display: none;
+    }
+}
+
+.shop-the-collection-container button:after {
+    content: '';
+    display: block;
+    height: 2.8rem;
+    aspect-ratio: 1;
+    background: url(/icons/chevron-left.svg) center/contain no-repeat;
+}
+
+.shop-the-collection-container button[data-toggle="prev"] {
+    left: 0;
+}
+
+.shop-the-collection-container button[data-toggle="next"] {
+    right: 0;
+    justify-content: flex-end;
+}
+
+.shop-the-collection-container button[data-toggle="next"]:after {
+    rotate: 180deg;
+}
+
+.shop-the-collection-container button span {
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px
+}
+
+.shop-the-collection-container button:hover,
+.shop-the-collection-container button:focus {
+    background: rgba(255, 255, 255, .5);
+}

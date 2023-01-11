@@ -1,9 +1,7 @@
 import {
   sampleRUM,
-  buildBlock,
   loadHeader,
   loadFooter,
-  decorateButtons,
   decorateIcons,
   decorateSections,
   decorateBlocks,
@@ -16,7 +14,7 @@ import {
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
-function buildHeroBlock(main) {
+/* function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
@@ -25,6 +23,53 @@ function buildHeroBlock(main) {
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
   }
+} */
+/**
+ * decorates paragraphs containing a single link as buttons.
+ * @param {Element} element container element
+ */
+
+function decorateButtons(element) {
+  element.querySelectorAll('a').forEach((a) => {
+    a.title = a.title || a.textContent;
+    if (a.href !== a.textContent) {
+      const up = a.parentElement;
+      const twoup = a.parentElement.parentElement;
+      if (!a.querySelector('img')) {
+        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button primary';
+          twoup.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'EM'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button secondary';
+          twoup.classList.add('button-container');
+        }
+      }
+    }
+  });
+}
+
+function buildImageLinks(element) {
+  const pictures = element.querySelectorAll(':scope > div > p > picture');
+  pictures.forEach((picture) => {
+    const up = picture.parentElement;
+    if (up) {
+      // select the last image that is associated with the link
+      const lastPicture = up.lastElementChild;
+      if (lastPicture && (picture === lastPicture)) {
+        // get the p tag that has link
+        const p = lastPicture.parentElement.nextElementSibling;
+        if (p && p.childNodes.length === 1 && p.childNodes[0].nodeName === 'A') {
+          const link = p.childNodes[0];
+          link.innerHTML = lastPicture.outerHTML;
+          up.replaceChild(link, lastPicture);
+          p.remove();
+        }
+      }
+    }
+  });
 }
 
 /**
@@ -33,7 +78,7 @@ function buildHeroBlock(main) {
  */
 function buildAutoBlocks(main) {
   try {
-    buildHeroBlock(main);
+    buildImageLinks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -74,7 +119,6 @@ async function loadEager(doc) {
 export function addFavIcon(href) {
   const link = document.createElement('link');
   link.rel = 'icon';
-  link.type = 'image/svg+xml';
   link.href = href;
   const existingLink = document.querySelector('head link[rel="icon"]');
   if (existingLink) {
@@ -99,7 +143,7 @@ async function loadLazy(doc) {
   loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
+  addFavIcon(`${window.hlx.codeBasePath}/icons/favicon.ico`);
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
