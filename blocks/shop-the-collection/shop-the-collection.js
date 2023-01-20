@@ -1,29 +1,48 @@
 const $carousel = document.querySelector(".shop-the-collection > div");
+const $carouselH2 = document.querySelector(".shop-the-collection-container h2");
 const $slide = document.querySelectorAll(".shop-the-collection > div > div");
+const $slide1 = document.querySelector(".shop-the-collection > div > div:nth-child(1)");
+const $slide2 = document.querySelector(".shop-the-collection > div > div:nth-child(2)");
+const $slide3 = document.querySelector(".shop-the-collection > div > div:nth-child(3)");
 const $toggle = document.querySelectorAll(".toggle");
 
-const $nextBtn = document.createElement('button');
-const $prevBtn = document.createElement('button');
-$nextBtn.innerHTML = '<span>Next</span>';
-$prevBtn.innerHTML = '<span>Prev</span>';
+//Create buttons
+const $nextBtn = document.createElement("button");
+const $prevBtn = document.createElement("button");
+$nextBtn.innerHTML = "<span>Next</span>";
+$prevBtn.innerHTML = "<span>Prev</span>";
+
+//Add button class
+$nextBtn.classList.add("toggle");
+$prevBtn.classList.add("toggle");
+
+//Add button data-toggle
+$nextBtn.setAttribute("data-toggle", "next");
+$prevBtn.setAttribute("data-toggle", "prev");
 
 //Add controls
 document.querySelector(".shop-the-collection").append($nextBtn);
 document.querySelector(".shop-the-collection").append($prevBtn);
 
-window.addEventListener("resize", mobileCarousel);
-window.addEventListener("load", mobileCarousel);
+//Set slides aria label for accessability
+$slide1.setAttribute("aria-label", "Slide one of three");
+$slide2.setAttribute("aria-label", "Slide two of three");
+$slide3.setAttribute("aria-label", "Slide three of three");
 
-$nextBtn.classList.add("toggle");
-$prevBtn.classList.add("toggle");
-
-$nextBtn.setAttribute('data-toggle', 'next');
-$prevBtn.setAttribute('data-toggle', 'prev');
-
+//Add class to last slide
 document.querySelector(".shop-the-collection > div > div:last-child").classList.add("is-ref");
 
+
+//Mobile Carousel functionality
 function mobileCarousel() {
   if (window.innerWidth < 600) {
+
+    // const $slide1 = document.querySelector(".shop-the-collection > div > div:nth-child(1)");
+    // $slide.forEach((elem) => elem.style.display = "none");
+    // $slide1.style.display = "block";
+    
+    $carouselH2.setAttribute("id", "carouselHeading");
+    $carousel.setAttribute("aria-labelledby", "carouselHeading");
 
     document.addEventListener("click", delegate(toggleFilter, toggleHandler));
     // Common helper for event delegation.
@@ -67,7 +86,7 @@ function mobileCarousel() {
 
       $newSlide.classList.add("is-ref");
       $newSlide.style.order = 1;
-      for (var i = 2; i <= $slide.length; i++) {
+      for (var i = 2;i <= $slide.length; i++) {
         $newSlide = next($newSlide);
         $newSlide.style.order = i;
       }
@@ -93,5 +112,21 @@ function mobileCarousel() {
         }
       }
     }
+
+
+  
+      
+      
+    
+
+
+
+
   }
+  
+  
 }
+
+
+window.addEventListener("resize", mobileCarousel);
+window.addEventListener("load", mobileCarousel);
